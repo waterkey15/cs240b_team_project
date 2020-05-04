@@ -7,6 +7,8 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include "math.h"
+#include "perf-metric.hh"
 
 class BinarySearch : public Search {
     

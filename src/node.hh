@@ -3,20 +3,20 @@
 
 #include <string>
 #include <functional>
-class Node
+
+#include "perf-metric.hh"
+
+class Node : public PerfMetric
 {
 public:
-    Node():value(""){
-
-    }
-    Node(std::string& data):value(data){
-    }
+    Node() : value(""){}
+    Node(std::string &data) : value(data){}
     std::string value;
-
-    bool operator < (const Node& str) const
-    {
-        return (value < str.value);
-    }
+    
+    bool operator<(Node &str) const;
+    friend std::ostream & operator << (std::ostream &out, const Node &c);
 };
+
+
 
 #endif

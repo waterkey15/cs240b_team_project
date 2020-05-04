@@ -5,8 +5,9 @@ DiffManager::DiffManager(string fileSourcePath, string fileToComparePath, Algo a
     Load(fileSourcePath, fileToComparePath, algo);
 }
 
-void DiffManager::Load(string fileSourcePath, string fileToComparePath, Algo algorithm){
-    
+void DiffManager::Load(string fileSourcePath, string fileToComparePath, Algo algorithm)
+{
+
     sourceFile.open(fileSourcePath);
     compareFile.open(fileToComparePath);
 
@@ -22,16 +23,10 @@ void DiffManager::Load(string fileSourcePath, string fileToComparePath, Algo alg
     }
     LoadDataIntoMemory(sourceFile, sourceData);
     LoadDataIntoMemory(compareFile, compareData);
-    //  for(int i=0;i<compareData->size();i++){
-    //     cout<< compareData->at(i).value << endl;
-    // }
-    
     isDataLoaded = true;
 
-   
-    compareAlgorithm  = AlgorithmFactory(algorithm);
+    compareAlgorithm = AlgorithmFactory(algorithm);
 }
-
 
 DiffManager::~DiffManager()
 {
@@ -56,11 +51,11 @@ DiffManager::DiffManager(int paramCount, const char **programArgs)
         char algoParam = programArgs[3][0];
 
         if (algoParam == 'B')
-            Load(programArgs[1], programArgs[2],Algo::BINARYSEARCH);
+            Load(programArgs[1], programArgs[2], Algo::BINARYSEARCH);
         else if (algoParam == 'L')
-            Load(programArgs[1], programArgs[2],Algo::LINEARSEARCH);
+            Load(programArgs[1], programArgs[2], Algo::LINEARSEARCH);
         else
-            Load(programArgs[1], programArgs[2],Algo::BINARYSEARCH);
+            Load(programArgs[1], programArgs[2], Algo::BINARYSEARCH);
     }
 }
 
@@ -69,7 +64,7 @@ void DiffManager::LoadDataIntoMemory(fstream &source, vector<Node> &refData)
     std::string line;
     while (getline(source, line))
     {
-        if(line.size() > 0)
+        if (line.size() > 0)
             refData.push_back(Node(line));
     }
 }
@@ -81,28 +76,30 @@ Search DiffManager::AlgorithmFactory(Algo algorithm)
     switch (algorithm)
     {
     case BINARYSEARCH:
-        runtimeSearch= BinarySearch(compareData);
+        runtimeSearch = BinarySearch(compareData);
         break;
     case LINEARSEARCH:
-        runtimeSearch= LinearSearch();
+        runtimeSearch = LinearSearch();
         break;
     default:
-        runtimeSearch= BinarySearch(compareData);
+        runtimeSearch = BinarySearch(compareData);
         break;
     }
     return runtimeSearch;
 }
 
-bool DiffManager::Ready(){
+bool DiffManager::Ready()
+{
     return isDataLoaded;
 }
 
 void DiffManager::StartComparison()
 {
     cout << "Comparison started" << endl;
+    
 }
 
 void DiffManager::PrintPerformanceBenchmarks()
 {
-    cout << "Performance metrics" << endl;
+    PrintPerformanceMetrics();
 }
