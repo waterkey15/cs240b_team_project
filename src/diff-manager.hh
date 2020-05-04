@@ -5,6 +5,8 @@
 #include <vector>
 #include <memory>
 #include <iostream>
+#include "search.hh"
+#include "node.hh"
 
 class DiffManager
 {
@@ -15,13 +17,14 @@ public:
         BINARYSEARCH,
         LINEARSEARCH
     };
-    const Algo algorithm = BINARYSEARCH; //Default Value
+    const Algo algorithm = BINARYSEARCH; //Default selected algorithm
     DiffManager(std::string fileSource, std::string fileDest, Algo algorithm);
-    DiffManager(const char**programArgs);
-    void StartComparison();
-private:
-    
+    DiffManager(int paramCount,const char**programArgs);
+    void PrintPerformanceBenchmarks();
 
+private:
+    void StartComparison();
+    Search<Node> createAlgorithm(std::istream &in,Algo algorithm);
 };
 
 #endif
