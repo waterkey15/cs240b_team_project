@@ -1,17 +1,15 @@
 #include "search.hh"
 
-template<class T>
 
-Search<T>::Search(vector<T> p1):data(p1){}
 
-template<class T>
+Search::Search(vector<Node>& data):data(data){}
 
-Search<T>::Search(){};
+Search::Search(){}
 
-template<class T>
 
-void Search<T>::AddItem(T item){};
+void Search::AddItem(Node item){}
 
-template<class T>
 
-T Search<T>::Find(std::string key){};
+Node Search::Find(std::string key){return Node();}
+
+bool Search::Exist(std::string key){return false;}
