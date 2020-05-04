@@ -8,9 +8,11 @@ Search::Search(vector<Node>& refData){
 
 Search::Search(){}
 
-Node Search::Find(std::string key){return Node();}
 
-bool Search::Exist(std::string key){return false;}
+bool Search::Exist(Node& item){
+    return false;
+}
+
 
 void Search::PrintData(){
     cout<<"##### Data ######\n";
@@ -21,6 +23,3 @@ void Search::PrintData(){
     cout<<"\n\n";
 }
 
-int Search::getOperationCount(){
-    return operationCount;
-}

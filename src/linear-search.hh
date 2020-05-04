@@ -4,11 +4,9 @@
 #include "search.hh"
 
 class LinearSearch : public Search {
-    public:
-        LinearSearch():Search(){
-            cout<<"LinearSearch algorithm is setting up..."<<endl;
-        }
-    
+     public:
+        LinearSearch(vector<Node>& data);
+        virtual bool Exist(Node& item) override;
 };
 
 #endif

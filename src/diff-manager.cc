@@ -7,7 +7,7 @@ DiffManager::DiffManager(string fileSourcePath, string fileToComparePath, Algo a
 
 void DiffManager::Load(string fileSourcePath, string fileToComparePath, Algo algorithm)
 {
-
+    metrics = PerfMetric(printBuffer);
     sourceFile.open(fileSourcePath);
     compareFile.open(fileToComparePath);
 
@@ -50,9 +50,9 @@ DiffManager::DiffManager(int paramCount, const char **programArgs)
         }
         char algoParam = programArgs[3][0];
 
-        if (algoParam == 'B')
+        if (algoParam == 'B' || algoParam == 'b')
             Load(programArgs[1], programArgs[2], Algo::BINARYSEARCH);
-        else if (algoParam == 'L')
+        else if (algoParam == 'L' || algoParam == 'l')
             Load(programArgs[1], programArgs[2], Algo::LINEARSEARCH);
         else
             Load(programArgs[1], programArgs[2], Algo::BINARYSEARCH);
@@ -69,20 +69,20 @@ void DiffManager::LoadDataIntoMemory(fstream &source, vector<Node> &refData)
     }
 }
 
-Search DiffManager::AlgorithmFactory(Algo algorithm)
+unique_ptr<Search> DiffManager::AlgorithmFactory(Algo algorithm)
 {
     cout << "Algorithm factory" << endl;
-    Search runtimeSearch;
+    unique_ptr<Search> runtimeSearch;
     switch (algorithm)
     {
     case BINARYSEARCH:
-        runtimeSearch = BinarySearch(compareData);
+        runtimeSearch = make_unique<BinarySearch>(compareData);
         break;
     case LINEARSEARCH:
-        runtimeSearch = LinearSearch();
+        runtimeSearch = make_unique<LinearSearch>(compareData);
         break;
     default:
-        runtimeSearch = BinarySearch(compareData);
+        runtimeSearch = make_unique<BinarySearch>(compareData);
         break;
     }
     return runtimeSearch;
@@ -96,10 +96,21 @@ bool DiffManager::Ready()
 void DiffManager::StartComparison()
 {
     cout << "Comparison started" << endl;
-    
+    auto start = chrono::steady_clock::now();
+    for(Node& record:sourceData){
+        if(compareAlgorithm->Exist(record)){
+            foundList.push_back(record);
+        }else{
+            notFoundList.push_back(record);
+        }
+    }
+    auto end = chrono::steady_clock::now();
+    microSeconds=chrono::duration_cast<chrono::microseconds>(end - start).count();
+    metrics.SetTime(microSeconds);
 }
 
 void DiffManager::PrintPerformanceBenchmarks()
 {
-    PrintPerformanceMetrics();
+    metrics.IncrementOp(compareAlgorithm->GetOpCount());    
+    metrics.PrintPerformanceMetrics();
 }

@@ -12,10 +12,11 @@
 #include "linear-search.hh"
 #include <stdio.h>
 #include "perf-metric.hh"
+#include <chrono>
 
 using namespace std;
 
-class DiffManager : public PerfMetric
+class DiffManager
 {
 
 public:
@@ -31,15 +32,19 @@ public:
     bool Ready();
     vector<Node> sourceData;
     vector<Node> compareData;
+    vector<Node> foundList;
+    vector<Node> notFoundList;
     ~DiffManager();
 private:
     bool isDataLoaded;
-    Search compareAlgorithm;  
+    unique_ptr<Search> compareAlgorithm;  
     fstream sourceFile, compareFile;
     void Load(string fileSource, string fileDest, Algo algorithm);  
     void LoadDataIntoMemory(fstream& source,vector<Node>& refData); 
-    Search AlgorithmFactory(Algo algorithm);
-    
+    unique_ptr<Search> AlgorithmFactory(Algo algorithm);
+    PerfMetric metrics;
+    char printBuffer[50];   
+    unsigned int microSeconds; 
 };
 
 #endif
