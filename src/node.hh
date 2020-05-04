@@ -12,9 +12,7 @@ public:
     Node() : value(""){}
     Node(std::string &data) : value(data){}
     std::string value;
-    
-    bool operator<(Node &node);
-    
+        
     friend std::ostream & operator << (std::ostream &out, const Node &c);
 };
 

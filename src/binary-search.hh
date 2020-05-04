@@ -6,7 +6,6 @@
 #include "node.hh"
 #include <vector>
 #include <iostream>
-#include <algorithm>
 #include "math.h"
 #include "perf-metric.hh"
 
@@ -15,6 +14,9 @@ class BinarySearch : public Search {
     public:
         BinarySearch(vector<Node>& data);
         virtual bool Exist(Node& item) override;
+    private:        
+        vector<Node> sort(vector<Node> data);
+        vector<Node> merge(vector<Node> left, vector<Node> right);
     
 };
 

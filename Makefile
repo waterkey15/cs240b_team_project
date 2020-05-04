@@ -17,7 +17,7 @@ CXX = g++
 LIBS=
 
 # compiter flags
-CXXFLAGS = -Wall  -I$(IDIR)
+CXXFLAGS = -Wall  -I$(IDIR) -fms-extensions -std=c++17
 
 # linker flags
 LDFLAGS := $(LIBS)

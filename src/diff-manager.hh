@@ -43,7 +43,7 @@ private:
     void LoadDataIntoMemory(fstream& source,vector<Node>& refData); 
     unique_ptr<Search> AlgorithmFactory(Algo algorithm);
     PerfMetric metrics;
-    char printBuffer[50];   
+    char printBuffer[200];   
     unsigned int microSeconds; 
 };
 

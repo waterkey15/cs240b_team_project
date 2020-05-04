@@ -15,11 +15,13 @@ class PerfMetric{
         int GetOpCount();
         void MergeMetrics(PerfMetric& metrics);
         void SetTime(unsigned int timeinMS);
+        void SetInputCount(int sourceSize, int compareSize,int foundSize,int notFoundSize);
     protected:
         char* printBuffer;
         int operationCount;
         int compareCount;
         int space;
+        int sourceDomainSize,compareDomainSize,foundSize,notFoundSize;
         unsigned int elapsedMicroSeconds;
 };
 #endif
