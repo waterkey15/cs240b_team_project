@@ -6,6 +6,10 @@ DiffManager::DiffManager(std::string fileSource, std::string fileDest, Algo algo
 }
 
 
-DiffManager::DiffManager(char** programArgs){
-    
+DiffManager::DiffManager(const char** programArgs){
+
+}
+
+void DiffManager::StartComparison(){
+    std::cout<<"Comparison started"<<std::endl;
 }

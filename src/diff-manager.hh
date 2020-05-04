@@ -3,6 +3,8 @@
 
 #include <string>
 #include <vector>
+#include <memory>
+#include <iostream>
 
 class DiffManager
 {
@@ -15,10 +17,10 @@ public:
     };
     const Algo algorithm = BINARYSEARCH; //Default Value
     DiffManager(std::string fileSource, std::string fileDest, Algo algorithm);
-    DiffManager(char**programArgs);
-
-private:
+    DiffManager(const char**programArgs);
     void StartComparison();
+private:
+    
 
 };
 
