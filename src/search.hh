@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include "node.hh"
+#include <memory>
 
 using namespace std;
 
@@ -11,11 +12,10 @@ class Search
 {
 public:
     Search();
-    Search(vector<Node>& data);    
-    virtual bool Exist(std::string key);
-    virtual Node Find(std::string key);
-private:
-    virtual void AddItem(Node item);
+    Search(vector<Node>& refData);
+    virtual bool Exist(string key);
+    virtual Node Find(string key);
+protected:
     vector<Node> data;
 };
 

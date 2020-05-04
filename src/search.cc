@@ -2,13 +2,11 @@
 
 
 
-Search::Search(vector<Node>& data):data(data){}
+Search::Search(vector<Node>& refData){
+    data = refData;
+}
 
 Search::Search(){}
-
-
-void Search::AddItem(Node item){}
-
 
 Node Search::Find(std::string key){return Node();}
 

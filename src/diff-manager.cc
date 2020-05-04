@@ -6,7 +6,7 @@ DiffManager::DiffManager(string fileSourcePath, string fileToComparePath, Algo a
 }
 
 void DiffManager::Load(string fileSourcePath, string fileToComparePath, Algo algorithm){
-    fstream sourceFile, compareFile;
+    
     sourceFile.open(fileSourcePath);
     compareFile.open(fileToComparePath);
 
@@ -22,21 +22,23 @@ void DiffManager::Load(string fileSourcePath, string fileToComparePath, Algo alg
     }
     LoadDataIntoMemory(sourceFile, sourceData);
     LoadDataIntoMemory(compareFile, compareData);
-    sourceFile.close();
-    compareFile.close();
+    //  for(int i=0;i<compareData->size();i++){
+    //     cout<< compareData->at(i).value << endl;
+    // }
+    
     isDataLoaded = true;
 
-    sort(sourceData->begin(),sourceData->end());
-    sort(compareData->begin(),compareData->end());
-
+   
     compareAlgorithm  = AlgorithmFactory(algorithm);
 }
 
 
 DiffManager::~DiffManager()
 {
-    sourceData->clear();
-    compareData->clear();
+    sourceData.clear();
+    compareData.clear();
+    sourceFile.close();
+    compareFile.close();
 }
 
 DiffManager::DiffManager(int paramCount, const char **programArgs)
@@ -62,12 +64,13 @@ DiffManager::DiffManager(int paramCount, const char **programArgs)
     }
 }
 
-void DiffManager::LoadDataIntoMemory(fstream &source, unique_ptr<vector<Node>> &refData)
+void DiffManager::LoadDataIntoMemory(fstream &source, vector<Node> &refData)
 {
-    string line;
+    std::string line;
     while (getline(source, line))
     {
-        refData->push_back(Node(line));
+        if(line.size() > 0)
+            refData.push_back(Node(line));
     }
 }
 
@@ -78,13 +81,13 @@ Search DiffManager::AlgorithmFactory(Algo algorithm)
     switch (algorithm)
     {
     case BINARYSEARCH:
-        runtimeSearch= BinarySearch();
+        runtimeSearch= BinarySearch(compareData);
         break;
     case LINEARSEARCH:
         runtimeSearch= LinearSearch();
         break;
     default:
-        runtimeSearch= LinearSearch();
+        runtimeSearch= BinarySearch(compareData);
         break;
     }
     return runtimeSearch;

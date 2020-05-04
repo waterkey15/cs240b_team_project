@@ -12,6 +12,11 @@ public:
     Node(std::string& data):value(data){
     }
     std::string value;
+
+    bool operator < (const Node& str) const
+    {
+        return (value < str.value);
+    }
 };
 
 #endif

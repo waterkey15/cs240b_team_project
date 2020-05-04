@@ -26,14 +26,15 @@ public:
     void PrintPerformanceBenchmarks();
     void StartComparison();
     bool Ready();
-    unique_ptr<vector<Node>> sourceData = make_unique<vector<Node>>();
-    unique_ptr<vector<Node>> compareData = make_unique<vector<Node>>();
+    vector<Node> sourceData;
+    vector<Node> compareData;
     ~DiffManager();
 private:
     bool isDataLoaded;
     Search compareAlgorithm;  
+    fstream sourceFile, compareFile;
     void Load(string fileSource, string fileDest, Algo algorithm);  
-    void LoadDataIntoMemory(fstream& source,unique_ptr<vector<Node>>& refData); 
+    void LoadDataIntoMemory(fstream& source,vector<Node>& refData); 
     Search AlgorithmFactory(Algo algorithm);
 };
 
