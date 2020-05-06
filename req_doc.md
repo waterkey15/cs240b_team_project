@@ -50,7 +50,7 @@ As expected, for the lists between the values 1-10 linear search performed bette
 |LINEAR SEARCH | Source | Destination | Op Count | Time(micro seconds) | AnB | A/B |
 |:------------|:-------|:------------|:---------|:--------------------|:----|:----|
 |List1(1-200)|200|-|15251|513|101|99|
-|List2(100-20)|-|101|-|-|-|-|
+|List2(100-200)|-|101|-|-|-|-|
 
 
 |BINARY SEARCH | Source | Destination | Op Count | Time(micro seconds) | AnB | A/B |
